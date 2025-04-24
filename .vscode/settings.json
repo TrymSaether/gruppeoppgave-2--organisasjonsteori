@@ -1,5 +1,5 @@
 {
-  "latex-workshop.latex.outDir": "%TMPDIR%",
+  // LaTeX Workshop
   "latex-workshop.latex.tools": [
     {
       "name": "lualatex",
@@ -15,6 +15,29 @@
       ]
     },
     {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-pdflatex=lualatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-shell-escape",
+        "-file-line-error",
+        "-output-directory=%TMPDIR%",
+        "-recorder",
+        "-pdf",
+        "-bibtex",
+        "-g",
+        "-outdir=%TMPDIR%",
+        "%DOCFILE%"
+      ]
+    },
+    {
+      "name": "makeglossaries",
+      "command": "makeglossaries",
+      "args": ["-d", "%TMPDIR%", "%DOCFILE%"]
+    },
+    {
       "name": "biber",
       "command": "biber",
       "args": ["--output-directory=%TMPDIR%", "%DOCFILE%"]
@@ -25,43 +48,79 @@
       "args": ["-output-directory=%TMPDIR%", "%DOCFILE%"]
     }
   ],
-
-  // --- Recipes: Chain tools to form complete build workflows ---
   "latex-workshop.latex.recipes": [
     {
-      "name": "Lua",
+      "name": "LuaLaTeX",
       "tools": ["lualatex"]
     },
     {
-      "name": "Lua²",
+      "name": "LuaLaTeX²",
       "tools": ["lualatex", "lualatex"]
     },
     {
-      "name": "Lua²+Bib",
+      "name": "LuaLaTeX + Biber",
       "tools": ["lualatex", "biber", "lualatex", "lualatex"]
     },
     {
-      "name": "Lua²+Glo+Bib",
+      "name": "LuaLaTeX + Glossary + Biber",
       "tools": ["lualatex", "makeglossaries", "biber", "lualatex", "lualatex"]
     },
     {
-      "name": "LMK",
+      "name": "LaTeXMK",
       "tools": ["latexmk"]
     },
     {
-      "name": "LMK²+Glo",
+      "name": "LaTeXMK + Glossary",
       "tools": ["latexmk", "makeglossaries", "latexmk"]
-    },
-    {
-      "name": "Tectonic",
-      "tools": ["tectonic"]
     }
   ],
-  "latex-workshop.latex.autoBuild.run": "onSave",
-
-  // --- Message Logging & Editor Settings ---
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.idx",
+    "*.ind",
+    "*.lof",
+    "*.lot",
+    "*.out",
+    "*.toc",
+    "*.acn",
+    "*.acr",
+    "*.alg",
+    "*.fls",
+    "*.log",
+    "*.glg",
+    "*.gls",
+    "*.ist",
+    "*.ilg",
+    "*.fdb_latexmk",
+    "*.snm",
+    "*.nav",
+    "*.vrb",
+    "*.dvi"
+  ],
+  "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.view.pdf.viewer": "tab",
   "latex-workshop.message.error.show": false,
+  "latex-workshop.message.log.show": true,
+  "editor.snippetSuggestions": "top",
+  "latex-workshop.intellisense.triggers.latex": ["\\", "$"],
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.synctex.indicator": "circle",
   "latex-workshop.message.warning.show": false,
   "latex-workshop.message.information.show": false,
-  "latex-workshop.message.log.show": true
+  "latex-workshop.formatting.latexindent.path": "/opt/homebrew/bin/latexindent",
+  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.view.pdf.external.viewer.command": "open",
+  "latex-workshop.view.pdf.external.viewer.args": ["-a", "Preview", "%PDF%"],
+  "latex-workshop.view.pdf.external.synctex.command": "open",
+  "latex-workshop.view.pdf.external.synctex.args": [
+    "-a",
+    "Preview",
+    "-g",
+    "%LINE%",
+    "%PDF%"
+  ],
+  "latex-workshop.latex.outDir": "%TMPDIR%"
 }
