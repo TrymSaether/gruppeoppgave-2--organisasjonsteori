@@ -1,0 +1,67 @@
+{
+  "latex-workshop.latex.outDir": "%TMPDIR%",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "lualatex",
+      "command": "lualatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-shell-escape",
+        "-file-line-error",
+        "-output-directory=%TMPDIR%",
+        "-recorder",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "biber",
+      "command": "biber",
+      "args": ["--output-directory=%TMPDIR%", "%DOCFILE%"]
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": ["-output-directory=%TMPDIR%", "%DOCFILE%"]
+    }
+  ],
+
+  // --- Recipes: Chain tools to form complete build workflows ---
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "Lua",
+      "tools": ["lualatex"]
+    },
+    {
+      "name": "Lua²",
+      "tools": ["lualatex", "lualatex"]
+    },
+    {
+      "name": "Lua²+Bib",
+      "tools": ["lualatex", "biber", "lualatex", "lualatex"]
+    },
+    {
+      "name": "Lua²+Glo+Bib",
+      "tools": ["lualatex", "makeglossaries", "biber", "lualatex", "lualatex"]
+    },
+    {
+      "name": "LMK",
+      "tools": ["latexmk"]
+    },
+    {
+      "name": "LMK²+Glo",
+      "tools": ["latexmk", "makeglossaries", "latexmk"]
+    },
+    {
+      "name": "Tectonic",
+      "tools": ["tectonic"]
+    }
+  ],
+  "latex-workshop.latex.autoBuild.run": "onSave",
+
+  // --- Message Logging & Editor Settings ---
+  "latex-workshop.message.error.show": false,
+  "latex-workshop.message.warning.show": false,
+  "latex-workshop.message.information.show": false,
+  "latex-workshop.message.log.show": true
+}
